@@ -27,8 +27,8 @@ To display the blog, enter shortcode
 ```
 
 ### Shortcode Attributes
-- ppp: post per page. Default vaule is `12`
-- channel_id: select article channels between ECH app and website. Default value is `9` (website)
-- brand_id: enter brand id to display specific brand articles. Default value is `0` which is display all brand articles
-- dev_env: Default is `false`. Edit to `true` for local XAMPP website. 
+- ppp(INT): post per page. Default vaule is `12`
+- channel_id(INT): select article channels between ECH app and website. Default value is `9` (website)
+- brand_id(INT): enter brand id to display specific brand articles. Default value is `0` which is display all brand articles
+- dev_env(BOOLEAN): Default is `false`. Edit to `true` for local XAMPP website. 
 
