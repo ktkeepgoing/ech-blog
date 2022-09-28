@@ -15,7 +15,7 @@ Follow the below steps.
 4. Copy and paste 3 css files from the setup folder into the `astra-child/assets/css` folder.
     - `setup/css/ech-blog-cate-tags-list.css`
     - `setup/css/ech-blog-single-post.css`
-    - `ech-blog-single-post-zh.css`
+    - `setup/css/ech-blog-single-post-zh.css`
 
 :information_desk_person: You may need to edit the css files to match the brand style and design requirements if necessary.
 
@@ -27,8 +27,8 @@ To display the blog, enter shortcode
 ```
 
 ### Shortcode Attributes
-- ppp(INT): post per page. Default vaule is `12`
-- channel_id(INT): select article channels between ECH app and website. Default value is `9` (website)
-- brand_id(INT): enter brand id to display specific brand articles. Default value is `0` which is display all brand articles
-- dev_env(BOOLEAN): Default is `false`. Edit to `true` for local XAMPP website. 
+- ppp (INT): post per page. Default vaule is `12`
+- channel_id (INT): select article channels between ECH app and website. Default value is `9` (website)
+- brand_id (INT): enter brand id to display specific brand articles. Default value is `0` which is display all brand articles
+- dev_env (BOOLEAN): Default is `false`. Edit to `true` for local XAMPP website. 
 
