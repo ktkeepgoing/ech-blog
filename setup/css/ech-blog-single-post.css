@@ -1,3 +1,13 @@
+
+
+/* set header bg*/
+div[data-elementor-type='header'] > .elementor-section {
+  background-color: #192744!important;
+}
+
+
+
+
 /****** COMMON ****/
 .hidden_b_w1024 {
   display: block;
@@ -25,6 +35,7 @@
   margin-left: auto;
   margin-right: auto;
   padding: 0px 20px;
+  margin-top: 200px;
 }
 
 .sp_breadcrumb {
@@ -58,9 +69,7 @@
 }
 .content_main_img img {
   width: 100%;
-  height: 320px;
-  object-fit: cover;
-  object-position: center;
+  height: auto;
 }
 
 .post_container .post_title h1 {
@@ -130,10 +139,17 @@
 .post_container .content .ECHB_p_section h2 {
   font-size: 30px;
   line-height: 1.2em;
+	margin-bottom: 20px;
+}
+
+.post_container .content .ECHB_p_section h3,
+.post_container .content .ECHB_p_section h4 {
+	margin-bottom: 20px;
 }
 
 .post_container .content .ECHB_p_section p {
-  margin-bottom: 20px;
+  /* margin-bottom: 20px;*/
+	margin-bottom: 0px;
 }
 
 .post_container .content .ECHB_p_section img {
@@ -150,28 +166,32 @@
 
 .post_container .post_source .dr_source {
   margin-bottom: 30px;
+  display: flex;
 }
 .post_container .post_source .dr_source:last-child {
   margin-bottom: 0px;
 }
 
 .post_container .post_source .dr_profile {
-  display: inline-block;
   max-width: 120px;
   width: 100%;
   vertical-align: top;
+  position: relative;
 }
 .post_container .post_source .dr_profile img {
-  height: 150px;
+  height: 100%;
   width: 100%;
   object-fit: cover;
   object-position: top center;
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 .post_container .post_source .dr_info {
-  display: inline-block;
   padding-left: 10px;
   vertical-align: top;
+  width: 80%;
 }
 
 .post_container .post_source .dr_info .dr_name {
