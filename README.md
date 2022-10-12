@@ -9,13 +9,14 @@ Follow the below steps.
 2. Create two pages: 
     - Health Blog Content with slug `health-blog-content`. :point_left: for display the single post content
     - Health Blog Category Tag List with slug `health-blog-category-tag-list`. :point_left: for display the filtered articles list. 
-3. Copy and paste 2 php files from the setup folder into the `astra-child` folder.
+3. Copy and paste 2 php files from the setup folder into the `astra-child` folder. Please note that the below files only can be used in Astra theme. 
     - `setup/pages/page-health-blog-content.php`
     - `setup/pages/page-health-blog-category-tag-list.php`
 4. Copy and paste 3 css files from the setup folder into the `astra-child/assets/css` folder.
     - `setup/css/ech-blog-cate-tags-list.css`
     - `setup/css/ech-blog-single-post.css`
     - `setup/css/ech-blog-single-post-zh.css`
+5. Edit the value of `$GLOBALS['list_default_img']` in `inc/ech-blog-function.php`
 
 :information_desk_person: You may need to edit the css files to match the brand style and design requirements if necessary.
 
