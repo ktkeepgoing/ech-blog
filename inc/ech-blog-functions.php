@@ -34,11 +34,11 @@ function enqueue_ech_blog_styles() {
 
 
 
-$GLOBALS['api_domain'] = "https://globalcms.umhgp.com/";
+$GLOBALS['api_domain'] = "https://globalcms-api.umhgp.com/";
 
 $GLOBALS['ECHB_ppp'] = '';
 $GLOBALS['ECHB_channel_id'] = '';
-
+$GLOBALS['list_default_img'] = '/wp-content/uploads/2022/10/ec-logo.svg';
 
 /****************************************
  * * Plugin main function
@@ -47,7 +47,7 @@ function ech_blog_fun($atts)
 {
 
 	$paraArr = shortcode_atts(array(
-		'ppp' => 12,
+		'ppp' => 3,
 		'channel_id' => 9,
 		'brand_id' => 0,
 		'dev_env' => false
@@ -137,6 +137,13 @@ function ECHB_load_post_card_template($post) {
 	$thumbnail_arr_en = json_decode($post['en_blog_img'], true);
 	$thumbnail_arr_zh = json_decode($post['tc_blog_img'], true);
 	$thumbnail_arr_sc = json_decode($post['cn_blog_img'], true);
+
+
+	// check ZH thumbnail if it is empty, empty EN and SC thumbnails will use ZH thumbnails becoz of blog_echolang()
+	if($thumbnail_arr_zh[0] == "") {
+		$thumbnail_arr_zh[0] = $GLOBALS['list_default_img'];
+	}
+
 
 	$publish_date = $post['product_time'];
 	
