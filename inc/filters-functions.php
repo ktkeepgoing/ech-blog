@@ -106,7 +106,7 @@ function ECHB_filter_blog_list() {
         $total_posts = $json_arr['count'];
         $max_page = round($total_posts/$ppp, 0);
         foreach ($json_arr['result'] as $post) {
-            $html .= ECHB_load_post_card_template($post);
+            $html .= ECHB_load_post_card_template($post, $brand_id);
         }
     } else {
         $html .= blog_echolang(['No posts ...' , '沒有文章', '没有文章']);

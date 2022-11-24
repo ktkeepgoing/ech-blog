@@ -1,6 +1,8 @@
 # ech-blog
 A Wordpress plugin to display ECH articles for any ECH company's brand websites. It is integrated with the global ECH articles CMS. 
 
+This plugin integrates with the TranslatePress plugin, Astra theme and Elementor page builder. Please make sure you already have these installed in the Wordpress site.
+
 ## Installation
 You need to manually create some pages and paste some files in order to make this plugin works. 
 Follow the below steps. 

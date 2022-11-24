@@ -39,6 +39,7 @@ $GLOBALS['api_domain'] = "https://globalcms-api.umhgp.com/";
 $GLOBALS['ECHB_ppp'] = '';
 $GLOBALS['ECHB_channel_id'] = '';
 $GLOBALS['list_default_img'] = '/wp-content/uploads/2022/10/ec-logo.svg';
+$GLOBALS['ECHB_scAttr_brand_id'] = 0;
 
 /****************************************
  * * Plugin main function
@@ -60,6 +61,7 @@ function ech_blog_fun($atts)
 
 	$GLOBALS['ECHB_ppp'] = $ppp;
 	$GLOBALS['ECHB_channel_id'] = $channel_id;
+	$GLOBALS['ECHB_scAttr_brand_id'] = $brand_id;
 
 
 	$api_args = array(
@@ -103,7 +105,7 @@ function ech_blog_fun($atts)
 
 	$output .= '<div class="all_posts_container" data-ppp="'.$ppp.'" data-channel="'.$channel_id .'" data-brand-id="'.$brand_id.'" data-category="" data-title="" data-tag="">';
 		foreach ($json_arr['result'] as $post) {
-			$output .= ECHB_load_post_card_template($post);
+			$output .= ECHB_load_post_card_template($post, $brand_id);
 		}
 	$output .= '</div>'; //all_posts_container
 
@@ -113,7 +115,7 @@ function ech_blog_fun($atts)
 	$max_page = ceil($total_posts/$ppp);
 	
 	
-	$output .= '<div class="ech_blog_pagination" data-current-page="1" data-max-page="'.$max_page.'" data-topage=""></div>';
+	$output .= '<div class="ech_blog_pagination" data-current-page="1" data-max-page="'.$max_page.'" data-topage="" data-brand-id="'.$brand_id.'"></div>';
 
 	$output .= '</div>'; //ech_blog_container
 
@@ -129,8 +131,9 @@ function ech_blog_fun($atts)
 
 /****************************************
  * Load Single Post Template
+ * $scAttr_brand_id = brand id requested in shortcode attributes 
  ****************************************/
-function ECHB_load_post_card_template($post) {
+function ECHB_load_post_card_template($post, $scAttr_brand_id) {
 	$html = '';
 
 
@@ -173,13 +176,13 @@ function ECHB_load_post_card_template($post) {
 
 	$html .= '<div class="single_blog_post_card">';
 	
-	$html .= '<div class="post_thumb"><a href="'.site_url().'/health-blog-content/?article_id='.$post['forever_article_id'].'&post_version='.$post['forever_version'].'"><img src="' . blog_echolang([ $thumbnail_arr_en[0], $thumbnail_arr_zh[0], $thumbnail_arr_sc[0] ]) . '" /></a></div>';
-	$html .= '<div class="post_title"><a href="'.site_url().'/health-blog-content/?article_id='.$post['forever_article_id'].'&post_version='.$post['forever_version'].'">' . blog_echolang([$post['en_title'], $post['tc_title'], $post['cn_title']]) . '</a></div>';
+	$html .= '<div class="post_thumb"><a href="'.site_url().'/health-blog-content/?article_id='.$post['forever_article_id'].'&post_version='.$post['forever_version'].'&scAttr_brand_id='.$scAttr_brand_id.'"><img src="' . blog_echolang([ $thumbnail_arr_en[0], $thumbnail_arr_zh[0], $thumbnail_arr_sc[0] ]) . '" /></a></div>';
+	$html .= '<div class="post_title"><a href="'.site_url().'/health-blog-content/?article_id='.$post['forever_article_id'].'&post_version='.$post['forever_version'].'&scAttr_brand_id='.$scAttr_brand_id.'">' . blog_echolang([$post['en_title'], $post['tc_title'], $post['cn_title']]) . '</a></div>';
 	$html .= '<div class="post_date">' . date('d/m/Y', $publish_date) . '</div>';	
 
-	$html .= '<div class="post_cate"> <strong>'.blog_echolang(['Categories', '類別', '类别']).': </strong> ' . blog_echolang([ ECHB_apply_comma_from_array($cateArrEn) , ECHB_apply_comma_from_array($cateArrZH), ECHB_apply_comma_from_array($cateArrSC) ]) . '</div>';
+	$html .= '<div class="post_cate"> <strong>'.blog_echolang(['Categories', '類別', '类别']).': </strong> ' . blog_echolang([ ECHB_apply_comma_from_array($cateArrEn, $scAttr_brand_id) , ECHB_apply_comma_from_array($cateArrZH, $scAttr_brand_id), ECHB_apply_comma_from_array($cateArrSC, $scAttr_brand_id) ]) . '</div>';
 
-	$html .= '<div class="post_tag"> <strong>'.blog_echolang(['Tags', '標籤', '标签']).': </strong> ' . blog_echolang([ ECHB_apply_comma_from_array($tagsArrEN) , ECHB_apply_comma_from_array($tagsArrZH), ECHB_apply_comma_from_array($tagsArrSC) ]) . '</div>';
+	$html .= '<div class="post_tag"> <strong>'.blog_echolang(['Tags', '標籤', '标签']).': </strong> ' . blog_echolang([ ECHB_apply_comma_from_array($tagsArrEN, $scAttr_brand_id) , ECHB_apply_comma_from_array($tagsArrZH, $scAttr_brand_id), ECHB_apply_comma_from_array($tagsArrSC, $scAttr_brand_id) ]) . '</div>';
 
 
 	$html .= '</div>'; //single_blog_post_card
@@ -223,7 +226,7 @@ function ECHB_load_more_posts() {
         $max_page = round($total_posts/$ppp, 0);
 
         foreach ($json_arr['result'] as $post) {
-            $html .= ECHB_load_post_card_template($post);
+            $html .= ECHB_load_post_card_template($post, $brand_id);
         }
     } else {
         $html .= blog_echolang(['No posts ...' , '沒有文章', '没有文章']);
@@ -494,7 +497,7 @@ function ECHB_sortContentArr($contentArr) {
  * Blog List - categories / tags comma separated list from array
  * This function is used to create a comma sparated list from an array. It is used on API Blog list categories / tags display
  ****************************************/
-function ECHB_apply_comma_from_array($langArr) {
+function ECHB_apply_comma_from_array($langArr, $scAttr_brand_id) {
 	$prefix = $commaList = '';
 	$type = '';
 
@@ -504,7 +507,7 @@ function ECHB_apply_comma_from_array($langArr) {
 		} else {
 			$type = 'cate_id=';
 		}
-		$commaList .= $prefix . '<a href="'.site_url().'/health-blog-category-tag-list/?'.$type.$itemArr['tag_id'].'">' . $itemArr['tag_name']. '</a>';
+		$commaList .= $prefix . '<a href="'.site_url().'/health-blog-category-tag-list/?brand_id='.$scAttr_brand_id.'&'.$type.$itemArr['tag_id'].'">' . $itemArr['tag_name']. '</a>';
 		$prefix = ", ";
 	}
 

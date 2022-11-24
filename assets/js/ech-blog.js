@@ -26,7 +26,7 @@ function load_more_posts(topage) {
 
 
   var ppp = jQuery(".all_posts_container").data("ppp");
-  var brand_id = jQuery(".all_posts_container").data("brand_id");
+  var brand_id = jQuery(".all_posts_container").data("brand-id");
   var toPage = topage;
 
   var filterCate = jQuery(".all_posts_container").data("category");
@@ -80,7 +80,7 @@ function getFilteredBlogPosts() {
   var filter_title = jQuery("#title_filter").val();
   var filter_cate = jQuery("#categories_filter").val();
   var ppp = jQuery(".all_posts_container").data("ppp");
-  var brand_id = jQuery(".all_posts_container").data("brand_id");
+  var brand_id = jQuery(".all_posts_container").data("brand-id");
 
   if(jQuery(window).width() > 1024) {
     filter_cate = jQuery(".D_cate_filter.active").data('catefilterid');
