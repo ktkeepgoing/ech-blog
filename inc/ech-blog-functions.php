@@ -51,12 +51,14 @@ function ech_blog_fun($atts)
 		'ppp' => 3,
 		'channel_id' => 9,
 		'brand_id' => 0,
+		'show_cate' => '',
 		'dev_env' => false
 	), $atts);
 
 	$ppp = (int)$paraArr['ppp'];
 	$channel_id = (int)$paraArr['channel_id'];
 	$brand_id = (int)$paraArr['brand_id'];
+	$show_cate = preg_replace('/\s/', '', $paraArr['show_cate']);;
 	$dev_env = $paraArr['dev_env'];
 
 	$GLOBALS['ECHB_ppp'] = $ppp;
@@ -86,8 +88,7 @@ function ech_blog_fun($atts)
 	
 	$output .= '<div class="ech_blog_filter_container">';
 
-	$output .= ECHB_get_categories_list(); 
-	/* $output .= ECHB_get_filter_tags();  */
+	$output .= ECHB_get_categories_list($show_cate); 
 	$output .= ECHB_get_filter_title(); 
 	$output .= '<div class="filter_search_btn">'.blog_echolang([ 'Search', '搜尋', '搜寻']).'</div>';
 	$output .= '</div>'; //ech_blog_filter_container

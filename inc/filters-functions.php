@@ -5,18 +5,38 @@
 /****************************************
  * Get all categories from API
  ****************************************/
-function ECHB_get_categories_list() {
+function ECHB_get_categories_list($show_cate) {
+    $show_cateArr = array();
+    if($show_cate != '') {
+        $show_cateArr = explode(",", $show_cate);
+    }
+    
+    
     $full_api = $GLOBALS['api_domain'] . '/v1/api/article_categories_list?get_type=1&page=1&page_size=50&channel_id=9';
     $get_cateList_json = ECHB_curl_blog_json($full_api);
     $json_arr = json_decode($get_cateList_json, true);
+
+
     $html = '';
     
     // Desktop    
     $html .= '<div class="D_categories_filter_container">';
     $html .= '<div data-catefilterid="" class="D_cate_filter active">'.blog_echolang(['All Categories','全部類別','全部类别']).'</div>';
-    foreach($json_arr['result'] as $category) {
-        $html .= '<div data-catefilterid="'.$category['article_category_id'].'" class="D_cate_filter">'.blog_echolang([$category['en_name'], $category['tc_name'], $category['cn_name'] ]).'</div>';
+
+    if (empty($show_cateArr)) {
+        foreach($json_arr['result'] as $category) {
+            $html .= '<div data-catefilterid="'.$category['article_category_id'].'" class="D_cate_filter">'.blog_echolang([$category['en_name'], $category['tc_name'], $category['cn_name'] ]).'</div>';
+        }
+    } else {
+        foreach($show_cateArr as $show_cate) {
+            foreach($json_arr['result'] as $key=>$category) {
+                if(in_array($show_cate, $category)) {
+                    $html .= '<div data-catefilterid="'.$category['article_category_id'].'" class="D_cate_filter">'.blog_echolang([$category['en_name'], $category['tc_name'], $category['cn_name'] ]).'</div>';
+                }
+            }
+        }
     }
+    
     $html .= '</div>'; //D_categories_filter_container
 
     // Mobile 
@@ -24,9 +44,21 @@ function ECHB_get_categories_list() {
     $html .= '<select name="categories_filter_M" id="categories_filter_M" class="categories_filter_M">';
         $html .= '<option value="">'.blog_echolang(['All Categories','全部類別','全部类别']).'</option>';
 
-        foreach($json_arr['result'] as $category) {
-            $html .= '<option value="'.$category['article_category_id'].'">'.blog_echolang([$category['en_name'], $category['tc_name'], $category['cn_name'] ]).'</option>';
+        if (empty($show_cateArr)) {
+            foreach($json_arr['result'] as $category) {
+                $html .= '<option value="'.$category['article_category_id'].'">'.blog_echolang([$category['en_name'], $category['tc_name'], $category['cn_name'] ]).'</option>';
+            }
+        } else {
+            foreach($show_cateArr as $show_cate) {
+                foreach($json_arr['result'] as $key=>$category) {
+                    if(in_array($show_cate, $category)) {
+                        $html .= '<option value="'.$category['article_category_id'].'">'.blog_echolang([$category['en_name'], $category['tc_name'], $category['cn_name'] ]).'</option>';
+                    }
+                }
+            }
         }
+
+        
         
     $html .= '</select>'; 
     $html .= '</div>'; //M_categories_filter_container
