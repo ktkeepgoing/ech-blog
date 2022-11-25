@@ -3,7 +3,7 @@
  * ECH Blog
  *
  * @link              https://echealthcare.com/
- * @since             1.2.0
+ * @since             2.0.0
  * @package           ECH_Blog
  * @wordpress-plugin
  * Plugin Name:       ECH Blog
@@ -13,7 +13,7 @@
  * 
  * 
  *                    
- * Version:           1.2.0
+ * Version:           2.0.0
  * Author:            Toby Wong
  * Author URI:        https://echealthcare.com/
  * License:           GPL-2.0+
