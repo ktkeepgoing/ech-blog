@@ -94,13 +94,9 @@ function getFilteredBlogPosts() {
 
   // ajax
   var env = jQuery(".ech_blog_big_wrap").data("env");
+  var ajaxurl = jQuery(".ech_blog_pagination").data("ajaxurl");
 
-  if(env == 'dev') {
-    var ajaxurl = "/ech/wp-admin/admin-ajax.php";
-  } else {
-    var ajaxurl = "/wp-admin/admin-ajax.php";
-  }
-  
+
   jQuery.ajax({
     url: ajaxurl,
     type: "post",
