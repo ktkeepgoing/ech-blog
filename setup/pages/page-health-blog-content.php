@@ -45,8 +45,41 @@ if (!isset($json_arr['result_code']) || $json_arr['result_code'] != 0) {
 }
 
 
+
+/*********************************************************
+ * Condition on unrelated brand articles
+ *  - disable Google indexing
+ *  - empty canonical url
+ *********************************************************/
+$get_post_brandID = $json_arr['result']['brand'][0]['forever_brand_id'];
+if( $get_post_brandID != $_GET['scAttr_brand_id'] ){
+
+    /* Disable Google indexing */
+    add_filter( 'rank_math/frontend/robots', function( $robots ) {
+        $robots["follow"] = 'nofollow';
+        $robots["index"] = 'noindex';    
+        return $robots;
+    });
+
+    /* Empty canonical url */
+    add_filter( 'rank_math/frontend/canonical', function( $canonical ) {
+        $canonical = "";
+        return $canonical;
+    });
+} // end if
+/***** (END) Disable Google indexing on unrelated brand articles *****/
+
+
+
+
+
+/**
+ * Below code section (RANK MATH - MAGE DATA) should be imported in rank-math.php 
+ * More details below on how to create "rank-math.php" file
+ * https://rankmath.com/kb/filters-hooks-api-developer/ 
+ */
 /***** RANK MATH - MAGE DATA ******/
-add_filter( 'rank_math/frontend/title', function( $title ) {
+/* add_filter( 'rank_math/frontend/title', function( $title ) {
     $title = '';
     $current_url = $_SERVER['REQUEST_URI'];
 	$url_arr = parse_url($current_url);
@@ -56,11 +89,8 @@ add_filter( 'rank_math/frontend/title', function( $title ) {
     }
     
 	return $title;
-});
-
+}); */
 /***** (END)RANK MATH - MAGE DATA ******/
-
-
 
 
 
