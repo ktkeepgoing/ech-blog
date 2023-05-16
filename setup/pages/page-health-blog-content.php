@@ -163,7 +163,7 @@ get_header();
                         $shareTxt = preg_replace('~[^\p{L}\p{N}\_]+~u', '', $shareTxt);
                         /***** (END)SHARE TEXT *****/
                     ?>
-                    <div class="post_tag"><?= blog_echolang(['Topics', '標籤', '标签']) ?>: <?= blog_echolang([ ECHB_apply_comma_from_array($tagsArrEN, $brand_id) , ECHB_apply_comma_from_array($tagsArrZH, $brand_id), ECHB_apply_comma_from_array($tagsArrSC, $brand_id) ]); ?></div>
+                    <div class="post_tag"><?= blog_echolang(['Topics', '標籤', '标签']) ?>: <?= blog_echolang([ ECHB_apply_comma_from_array($tagsArrEN, $scAttr_brand_id) , ECHB_apply_comma_from_array($tagsArrZH, $scAttr_brand_id), ECHB_apply_comma_from_array($tagsArrSC, $scAttr_brand_id) ]); ?></div>
                     <div class="post_share">
                         <a href="https://www.facebook.com/sharer/sharer.php?u=<?= home_url(add_query_arg($_GET, $wp->request)) ?>" target="_blank"><img src="<?= site_url() ?>/wp-content/uploads/2022/06/author-fb.svg" alt="" class="post_fb"></a>
                         
