@@ -73,27 +73,6 @@ if( $get_post_brandID != $_GET['scAttr_brand_id'] ){
 
 
 
-/**
- * Below code section (RANK MATH - MAGE DATA) should be imported in rank-math.php 
- * More details below on how to create "rank-math.php" file
- * https://rankmath.com/kb/filters-hooks-api-developer/ 
- */
-/***** RANK MATH - MAGE DATA ******/
-/* add_filter( 'rank_math/frontend/title', function( $title ) {
-    $title = '';
-    $current_url = $_SERVER['REQUEST_URI'];
-	$url_arr = parse_url($current_url);
-
-    if(str_contains($url_arr['path'], '/health-blog-content')) {
-        $title = 'Single Post';
-    }
-    
-	return $title;
-}); */
-/***** (END)RANK MATH - MAGE DATA ******/
-
-
-
 global $wp;
 
 add_action('wp_head', 'cu_add_to_head', 7);
