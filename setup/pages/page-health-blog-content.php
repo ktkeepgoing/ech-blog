@@ -47,7 +47,7 @@ if (!isset($json_arr['result_code']) || $json_arr['result_code'] != 0) {
 
 
 /*********************************************************
- * Condition on unrelated brand articles
+ * Meta Data Conditions on unrelated brand articles
  *  - disable Google indexing
  *  - empty canonical url
  *********************************************************/
