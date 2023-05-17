@@ -52,9 +52,8 @@ if (!isset($json_arr['result_code']) || $json_arr['result_code'] != 0) {
  *  - empty canonical url
  *********************************************************/
 $get_post_brandID = $json_arr['result']['brand'][0]['forever_brand_id'];
-$scAttr_brand_id = rtrim($_GET['scAttr_brand_id'], "/");
 
-if( $get_post_brandID != $scAttr_brand_id ){
+if( $get_post_brandID != $_GET['scAttr_brand_id'] ){
 
     /* Disable Google indexing */
     add_filter( 'rank_math/frontend/robots', function( $robots ) {
