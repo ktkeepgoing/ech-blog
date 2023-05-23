@@ -502,6 +502,8 @@ function ECHB_apply_comma_from_array($langArr, $scAttr_brand_id) {
 	$prefix = $commaList = '';
 	$type = '';
 
+	$scAttr_brand_id = rtrim($scAttr_brand_id, "/");
+
 	foreach($langArr as $itemArr) {
 		if($itemArr['type'] == 'tag') {
 			$type = 'tag_id=';
