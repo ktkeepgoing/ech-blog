@@ -10,7 +10,8 @@ jQuery(document).ready(function(){
 function paginationGenerate(page){
 
     var maxPage = jQuery(".ech_blog_pagination").data("max-page");
-    var pagination = '<ul><li><a href="#" onclick="paginationGenerate(checkPrevious(' + page + ')) ">&laquo;</a></li>';
+    //var pagination = '<ul><li><a href="#" onclick="paginationGenerate(checkPrevious(' + page + ')) ">&laquo;</a></li>';
+    var pagination = '<ul><li><a href="#" onclick="">&laquo;</a></li>';
 
     /* Page Range Calculation */
     var range = pageRange(page, maxPage);
@@ -22,7 +23,8 @@ function paginationGenerate(page){
         if (page_id != page) pagination += '<li><a href="#" onclick="paginationGenerate(' + page_id + ')">' + page_id + '</a></li>';
         else pagination += '<li class="active"><span>' + page_id + '</span></li>';
     }
-    pagination += '<li><a href="#" onclick="paginationGenerate(checkNext(' + page + ',' + maxPage + '))">&raquo;</a></li></ul>';
+    //pagination += '<li><a href="#" onclick="paginationGenerate(checkNext(' + page + ',' + maxPage + '))">&raquo;</a></li></ul>';
+    pagination += '<li><a href="#" onclick="">&raquo;</a></li></ul>';
 
     if(!pageInitial) {        
         load_more_posts(page);

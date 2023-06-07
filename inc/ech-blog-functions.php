@@ -116,7 +116,7 @@ function ech_blog_fun($atts)
 	$max_page = ceil($total_posts/$ppp);
 	
 	
-	$output .= '<div class="ech_blog_pagination" data-current-page="1" data-max-page="'.$max_page.'" data-topage="" data-brand-id="'.$brand_id.'"></div>';
+	$output .= '<div class="ech_blog_pagination" data-current-page="1" data-max-page="'.$max_page.'" data-topage="" data-brand-id="'.$brand_id.'" data-ajaxurl="'.get_admin_url(null, 'admin-ajax.php').'"></div>';
 
 	$output .= '</div>'; //ech_blog_container
 
@@ -501,6 +501,8 @@ function ECHB_sortContentArr($contentArr) {
 function ECHB_apply_comma_from_array($langArr, $scAttr_brand_id) {
 	$prefix = $commaList = '';
 	$type = '';
+
+	$scAttr_brand_id = rtrim($scAttr_brand_id, "/");
 
 	foreach($langArr as $itemArr) {
 		if($itemArr['type'] == 'tag') {

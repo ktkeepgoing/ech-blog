@@ -45,20 +45,30 @@ if (!isset($json_arr['result_code']) || $json_arr['result_code'] != 0) {
 }
 
 
-/***** RANK MATH - MAGE DATA ******/
-add_filter( 'rank_math/frontend/title', function( $title ) {
-    $title = '';
-    $current_url = $_SERVER['REQUEST_URI'];
-	$url_arr = parse_url($current_url);
 
-    if(str_contains($url_arr['path'], '/health-blog-content')) {
-        $title = 'Single Post';
-    }
-    
-	return $title;
-});
+/*********************************************************
+ * Meta Data Conditions on unrelated brand articles
+ *  - disable Google indexing
+ *  - empty canonical url
+ *********************************************************/
+$get_post_brandID = $json_arr['result']['brand'][0]['forever_brand_id'];
 
-/***** (END)RANK MATH - MAGE DATA ******/
+if( $get_post_brandID != $_GET['scAttr_brand_id'] || empty($_GET['scAttr_brand_id'])){
+
+    /* Disable Google indexing */
+    add_filter( 'rank_math/frontend/robots', function( $robots ) {
+        $robots["follow"] = 'nofollow';
+        $robots["index"] = 'noindex';    
+        return $robots;
+    });
+
+    /* Empty canonical url */
+    add_filter( 'rank_math/frontend/canonical', function( $canonical ) {
+        $canonical = "";
+        return $canonical;
+    });
+} // end if
+/***** (END) Disable Google indexing on unrelated brand articles *****/
 
 
 
@@ -154,7 +164,7 @@ get_header();
                         $shareTxt = preg_replace('~[^\p{L}\p{N}\_]+~u', '', $shareTxt);
                         /***** (END)SHARE TEXT *****/
                     ?>
-                    <div class="post_tag"><?= blog_echolang(['Topics', '標籤', '标签']) ?>: <?= blog_echolang([ ECHB_apply_comma_from_array($tagsArrEN, $brand_id) , ECHB_apply_comma_from_array($tagsArrZH, $brand_id), ECHB_apply_comma_from_array($tagsArrSC, $brand_id) ]); ?></div>
+                    <div class="post_tag"><?= blog_echolang(['Topics', '標籤', '标签']) ?>: <?= blog_echolang([ ECHB_apply_comma_from_array($tagsArrEN, $scAttr_brand_id) , ECHB_apply_comma_from_array($tagsArrZH, $scAttr_brand_id), ECHB_apply_comma_from_array($tagsArrSC, $scAttr_brand_id) ]); ?></div>
                     <div class="post_share">
                         <a href="https://www.facebook.com/sharer/sharer.php?u=<?= home_url(add_query_arg($_GET, $wp->request)) ?>" target="_blank"><img src="<?= site_url() ?>/wp-content/uploads/2022/06/author-fb.svg" alt="" class="post_fb"></a>
                         

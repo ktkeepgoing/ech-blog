@@ -94,13 +94,9 @@ function getFilteredBlogPosts() {
 
   // ajax
   var env = jQuery(".ech_blog_big_wrap").data("env");
+  var ajaxurl = jQuery(".ech_blog_pagination").data("ajaxurl");
 
-  if(env == 'dev') {
-    var ajaxurl = "/ech/wp-admin/admin-ajax.php";
-  } else {
-    var ajaxurl = "/wp-admin/admin-ajax.php";
-  }
-  
+
   jQuery.ajax({
     url: ajaxurl,
     type: "post",
@@ -124,10 +120,12 @@ function getFilteredBlogPosts() {
       jQuery(".all_posts_container").data("category", filter_cate);
       jQuery(".all_posts_container").attr("data-category", filter_cate);
 
-      paginationGenerate(1);
-
+      
       if(jsonObj.max_page > 1) {
         jQuery(".ech_blog_pagination").attr("data-max-page", jsonObj.max_page);       
+        jQuery(".ech_blog_pagination").data("max-page", jsonObj.max_page);       
+        paginationGenerate(1);
+        
         jQuery(".ech_blog_pagination").css("display", "block");
 
       } else {
